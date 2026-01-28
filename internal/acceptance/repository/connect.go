@@ -4,10 +4,20 @@ import (
 	"database/sql"
 	"fmt"
 	"log/slog"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func ConnectDB(logger *slog.Logger) (*sql.DB, error) {
-	connStr := "postgres://postgres:1488@localhost:5432/acceptance_service_db?sslmode=disable"
+	//Подгрузка коннекта в переменную серды окружения
+	_ = godotenv.Load()
+
+	connStr := os.Getenv("DATABASE_URL")
+	if connStr == "" {
+		return nil, fmt.Errorf("DATABASE_URL is not set")
+	}
+
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		return nil, fmt.Errorf("При попытке подключения к БД произошла ошибка:%w", err)

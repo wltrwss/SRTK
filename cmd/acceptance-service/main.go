@@ -32,7 +32,7 @@ func main() {
 	http.HandleFunc("/acceptance/position", handler.PositionsHandler)
 	http.HandleFunc("/acceptance/position/send", handler.SendPositionsHandler)
 
-	logger.Info("Сервер запущен. Порт: 1488")
+	logger.Info("Сервер запущен.")
 	if err := http.ListenAndServe(":1488", nil); err != nil {
 		logger.Error("Аварийное завершение работы сервера. Причина:", slog.String("description", err.Error()))
 	}
