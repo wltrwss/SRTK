@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package positions;
+
+option go_package = "proto/accounting/positionspb";
+
+import "google/protobuf/timestamp.proto";
+
+service AddPositionsService {
+  rpc AddPositions (Request) returns (Response);
+}
+
+message Position {
+  string barcode = 1;
+  string name = 2;
+  string unit_measurement = 3;
+  double quantity = 4;
+  double price_buy = 5;
+  double price_sell = 6;
+  google.protobuf.Timestamp date = 7;
+}
+
+message Request {
+  repeated Position positions = 1;
+}
+
+message Response {
+  string msg = 1;
+}
+
